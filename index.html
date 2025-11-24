@@ -1,0 +1,529 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nithin Pulla | Software Engineer & DevOps</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles to mirror the target site's aesthetic */
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #FFFFFF; /* White Background */
+            color: #1F2937; /* Dark Grey/Black Text */
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Define the primary accent color (Teal/Mint, similar to the target site) */
+        .accent-color { color: #00C9A7; }
+        .bg-accent { background-color: #00C9A7; }
+        .border-accent { border-color: #00C9A7; }
+        
+        /* Sticky Navigation Bar */
+        .sticky-nav {
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+        }
+
+        /* Section Heading Style */
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1F2937;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Hover effect for buttons/links */
+        .btn-primary:hover {
+            background-color: #00A083; /* Darker teal */
+            transform: translateY(-1px);
+        }
+
+        /* Custom Project Card Effect */
+        .project-card {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            border-color: #00C9A7;
+        }
+
+        /* ---------------------------------- */
+        /* TIMELINE SPECIFIC STYLES (Updated) */
+        /* ---------------------------------- */
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* The vertical line */
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #E5E7EB; /* Light gray line */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            /* Mobile: Move line to the left */
+            @media (max-width: 768px) {
+                left: 10px;
+            }
+        }
+
+        /* Individual item container */
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            display: flex; /* Use flex to align image/content */
+            align-items: center; /* Vertically align image and content */
+            /* Mobile: Full width */
+            @media (max-width: 768px) {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 15px;
+            }
+        }
+        
+        /* Items positioned to the right (Experience) */
+        .right {
+            left: 50%;
+            justify-content: flex-start;
+            /* Mobile: Reset position */
+            @media (max-width: 768px) {
+                left: 0%;
+            }
+        }
+        /* Items positioned to the left (Education) */
+        .left {
+            justify-content: flex-end; /* Push content to the right edge of the 50% box */
+        }
+        
+        /* Dot on the line */
+        .timeline-dot {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 40px; /* Adjust dot position */
+            border-radius: 50%;
+            z-index: 2;
+            background-color: #FFFFFF;
+            border: 4px solid #00C9A7; /* Accent color ring */
+            transition: all 0.3s ease;
+        }
+
+        /* Dot positioning for LEFT items */
+        .left .timeline-dot {
+            right: -10px;
+            /* Mobile: Position on the left side */
+            @media (max-width: 768px) {
+                left: 0;
+                right: auto;
+            }
+        }
+        /* Dot positioning for RIGHT items */
+        .right .timeline-dot {
+            left: -10px;
+            /* Mobile: Reset position */
+            @media (max-width: 768px) {
+                left: 0;
+            }
+        }
+
+        /* Content box styling */
+        .timeline-content {
+            flex-grow: 1; /* Allows content to take up remaining space */
+            max-width: 100%; /* Ensure it fits within 50% width */
+            position: relative;
+            z-index: 1;
+            padding: 1.5rem; /* Standard padding */
+        }
+
+        /* Image/Logo container positioning (Specific to the requirement) */
+        .timeline-logo {
+            width: 80px;
+            height: 80px;
+            background-color: #E5E7EB; /* Placeholder background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 3;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image position for RIGHT items (Experience) - Image is on the left side of the block */
+        .right .timeline-logo {
+            left: -140px; /* Pushes the logo away from the center line */
+            /* Mobile: Hide logo for better flow */
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+
+        /* Image position for LEFT items (Education) - Image is on the right side of the block */
+        .left .timeline-logo {
+            right: -140px; /* Pushes the logo away from the center line */
+            /* Mobile: Hide logo */
+            @media (max-width: 768px) {
+                display: none;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-accent': '#00C9A7',
+                        'dark-text': '#1F2937',
+                        'light-gray': '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-dark-text">
+
+    <!-- Sticky Header/Navigation -->
+    <header class="sticky top-0 z-50 sticky-nav">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-extrabold tracking-tight">
+                Nithin Pulla<span class="accent-color">.</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-lg font-medium">
+                <a href="#about" class="hover:text-primary-accent transition-colors">About</a>
+                <a href="#experience" class="hover:text-primary-accent transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-primary-accent transition-colors">Projects</a>
+                <a href="#skills" class="hover:text-primary-accent transition-colors">Skills</a>
+                <a href="#contact" class="hover:text-primary-accent transition-colors">Contact</a>
+            </nav>
+            <!-- Mobile Menu Placeholder -->
+            <button class="md:hidden text-2xl accent-color">
+                <!-- Hamburger Icon SVG -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- 1. Home/Hero Section -->
+        <section id="home" class="min-h-screen flex items-center pt-24 pb-16 text-center lg:text-left">
+            <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
+                <!-- Text Content -->
+                <div class="lg:col-span-8">
+                    <p class="text-xl sm:text-2xl font-semibold mb-4 text-gray-500">
+                        Hello! I'm
+                    </p>
+                    <h1 class="text-6xl sm:text-8xl font-extrabold leading-none mb-6">
+                        Nithin Pulla
+                    </h1>
+                    <h2 class="text-3xl sm:text-4xl font-light mb-8 text-gray-700">
+                        Software Engineer | DevOps | Distributed Systems
+                    </h2>
+                    <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 mb-10">
+                        A highly driven engineer specializing in building and automating high-scale, reliable cloud infrastructure and performance-critical software systems.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                        <a href="#projects" class="btn-primary px-8 py-3 bg-primary-accent text-white font-bold rounded-lg shadow-md transition duration-300">
+                            View Projects
+                        </a>
+                        <a href="mailto:nithinp.deploy@gmail.com" class="px-8 py-3 border-2 border-primary-accent text-primary-accent font-bold rounded-lg transition duration-300 hover:bg-primary-accent/10">
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Placeholder Image/Illustration (Following the target design) -->
+                <div class="lg:col-span-4 mt-12 lg:mt-0 hidden lg:block">
+                    <!-- Placeholder SVG resembling a system architect/coding visual -->
+                    <svg class="w-full h-auto text-gray-300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="300" height="200" rx="15" fill="#E5E7EB"/>
+                        <rect x="70" y="70" width="260" height="150" rx="10" fill="#FFFFFF"/>
+                        <rect x="80" y="80" width="240" height="10" rx="5" fill="#9CA3AF"/>
+                        <rect x="80" y="100" width="100" height="10" rx="5" fill="#D1D5DB"/>
+                        <rect x="80" y="120" width="240" height="10" rx="5" fill="#D1D5DB"/>
+                        <rect x="80" y="140" width="200" height="10" rx="5" fill="#D1D5DB"/>
+                        <circle cx="300" cy="220" r="40" fill="#00C9A7" opacity="0.8"/>
+                        <text x="300" y="225" font-family="Inter" font-size="20" text-anchor="middle" fill="#FFFFFF" font-weight="bold">SCALE</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. About Section -->
+        <section id="about" class="py-20">
+            <h2 class="section-heading">About Me</h2>
+            <div class="text-center max-w-4xl mx-auto space-y-6 text-lg text-gray-700">
+                <p>
+                    My professional journey spans two years as a Software Engineer at GE Healthcare, focusing on building high-performance, resilient Java-based backends and implementing robust DevOps practices. My goal is to synthesize complex systems into elegant, scalable solutions.
+                </p>
+                <p>
+                    Currently, I'm deepening my expertise through an **M.S. in Computer Science at the University at Buffalo**, specializing in Distributed Systems, Cloud Computing, and advanced algorithms. I thrive on challenging technical problems and am driven to contribute to mission-critical infrastructure.
+                </p>
+                <p>
+                    Outside of core engineering, I am a passionate photographer and illustrator, disciplines which enforce attention to detail and composition—skills I bring directly into my system architecture approach.
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Experience & Education Section: TIMELINE WITH IMAGES -->
+        <section id="experience" class="py-20 bg-light-gray">
+            <h2 class="section-heading">Experience & Education</h2>
+            
+            <div class="timeline-container">
+
+                <!-- 1. University at Buffalo M.S. (LATEST - EDUCATION: LEFT) -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <!-- Education: Image on the RIGHT -->
+                    <div class="timeline-logo">
+                        <span class="text-xs font-bold text-gray-600 p-1 text-center">UB LOGO</span>
+                    </div>
+                    <div class="timeline-content bg-white rounded-lg shadow-lg border-b-4 border-gray-400">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl sm:text-2xl font-bold text-dark-text">M.S. in Computer Science</h3>
+                            <span class="text-sm font-medium text-gray-500 min-w-[120px] text-right">Aug 2024 - Dec 2025 (Expected)</span>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-600 mb-3">University at Buffalo | GPA: 3.9/4.0</p>
+                        <p class="text-sm text-gray-700">Focus on Distributed Systems, Cloud Computing, and advanced Algorithms for high-performance applications.</p>
+                    </div>
+                </div>
+
+                <!-- 2. GE Healthcare Software Engineering Specialist (EXPERIENCE: RIGHT) -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <!-- Experience: Image on the LEFT -->
+                    <div class="timeline-logo">
+                        <span class="text-xs font-bold text-gray-600 p-1 text-center">GE LOGO</span>
+                    </div>
+                    <div class="timeline-content bg-white rounded-lg shadow-lg border-b-4 border-primary-accent">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl sm:text-2xl font-bold text-dark-text">Software Engineering Specialist</h3>
+                            <span class="text-sm font-medium text-gray-500 min-w-[120px] text-right">Aug 2022 - Aug 2024</span>
+                        </div>
+                        <p class="text-lg font-semibold accent-color mb-3">GE Healthcare</p>
+                        <ul class="list-disc list-outside ml-6 space-y-1 text-sm text-gray-700">
+                            <li>Optimized SQL, reducing Master Patient Index latency by **35%**.</li>
+                            <li>Automated disaster recovery, increasing system reliability to **99.88%** uptime.</li>
+                            <li>Developed test automation framework, accelerating validation cycles from 30 to **5 days**.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. GE Healthcare DevOps Engineer Intern (EXPERIENCE: RIGHT) -->
+                <div class="timeline-item right">
+                    <div class="timeline-dot"></div>
+                    <!-- Experience: Image on the LEFT -->
+                    <div class="timeline-logo">
+                        <span class="text-xs font-bold text-gray-600 p-1 text-center">GE LOGO</span>
+                    </div>
+                    <div class="timeline-content bg-white rounded-lg shadow-lg border-b-4 border-primary-accent">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl sm:text-2xl font-bold text-dark-text">DevOps Engineer Intern</h3>
+                            <span class="text-sm font-medium text-gray-500 min-w-[120px] text-right">Aug 2021 - Jul 2022</span>
+                        </div>
+                        <p class="text-lg font-semibold accent-color mb-3">GE Healthcare</p>
+                        <ul class="list-disc list-outside ml-6 space-y-1 text-sm text-gray-700">
+                            <li>Designed CI/CD pipeline (Jenkins, Docker, K8s) reducing deployment time by **85%**.</li>
+                            <li>Accelerated Python ML pipelines by **60%** via AWS Lambda containerization.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 4. Amrita School of Engineering B.Tech (EARLIEST - EDUCATION: LEFT) -->
+                <div class="timeline-item left">
+                    <div class="timeline-dot"></div>
+                    <!-- Education: Image on the RIGHT -->
+                    <div class="timeline-logo">
+                        <span class="text-xs font-bold text-gray-600 p-1 text-center">AMRITA LOGO</span>
+                    </div>
+                    <div class="timeline-content bg-white rounded-lg shadow-lg border-b-4 border-gray-400">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl sm:text-2xl font-bold text-dark-text">B.Tech in ECE</h3>
+                            <span class="text-sm font-medium text-gray-500 min-w-[120px] text-right">Jul 2018 - May 2022</span>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-600 mb-3">Amrita School of Engineering | GPA: 3.7/4.0</p>
+                        <p class="text-sm text-gray-700">Foundational engineering background in Electronics & Communications Engineering.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" class="py-20">
+            <h2 class="section-heading">Selected Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Project 1: MyCritters Pet Services Platform -->
+                <div class="project-card p-6">
+                    <h3 class="text-2xl font-bold accent-color mb-3">MyCritters Pet Services Platform</h3>
+                    <p class="text-gray-700 mb-4">
+                        A comprehensive, full-stack web application with role-based logins and integrated AI-powered recommendations.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">React</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Next.js</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">GraphQL</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Node.js</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: Cloud Infrastructure Reliability Toolkit -->
+                <div class="project-card p-6">
+                    <h3 class="text-2xl font-bold accent-color mb-3">Cloud Reliability Toolkit</h3>
+                    <p class="text-gray-700 mb-4">
+                        Automated infrastructure provisioning for AWS ECS, Kubernetes, and Aurora PostgreSQL. Implemented Kafka queue monitoring.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Terraform</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">AWS ECS</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Kubernetes</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Kafka</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: AI-Powered Pothole Detection -->
+                <div class="project-card p-6">
+                    <h3 class="text-2xl font-bold accent-color mb-3">AI Pothole Detection System</h3>
+                    <p class="text-gray-700 mb-4">
+                        End-to-end intelligent road monitoring using computer vision (YOLOv5) integrated with a React/Django full-stack architecture.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">YOLOv5</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Django</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">React</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Computer Vision</span>
+                    </div>
+                </div>
+
+                <!-- Project 4: EMNIST Character Recognition System -->
+                <div class="project-card p-6">
+                    <h3 class="text-2xl font-bold accent-color mb-3">EMNIST Character Recognition</h3>
+                    <p class="text-gray-700 mb-4">
+                        Production-ready ML pipeline for handwritten character classification using PyTorch CNNs, achieving 94.2% accuracy.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">PyTorch CNNs</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Flask</span>
+                        <span class="px-3 py-1 bg-primary-accent/10 text-primary-accent rounded-full">Docker</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. Skills Section (Matching the tab-like structure of the target site) -->
+        <section id="skills" class="py-20 bg-light-gray">
+            <h2 class="section-heading">Technical Skills</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Column 1: Core Languages -->
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold accent-color mb-3">Languages</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>Java (Spring)</li>
+                        <li>Python (ML)</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>C / C++</li>
+                        <li>Bash / Shell</li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Cloud & DevOps -->
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold accent-color mb-3">Cloud & DevOps</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>AWS (ECS, Lambda)</li>
+                        <li>Kubernetes, Docker</li>
+                        <li>Terraform, Ansible</li>
+                        <li>Jenkins, GitLab CI/CD</li>
+                        <li>Networking, Linux</li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Frameworks & Databases -->
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold accent-color mb-3">Web & Data</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>React, Next.js</li>
+                        <li>Node.js, Flask, Django</li>
+                        <li>PostgreSQL, SQL</li>
+                        <li>GraphQL, REST API</li>
+                        <li>Hibernate (ORM)</li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: ML & Tools -->
+                <div class="p-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold accent-color mb-3">ML/AI & Tools</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>PyTorch, TensorFlow</li>
+                        <li>YOLOv5, OpenCV</li>
+                        <li>Pandas, NumPy</li>
+                        <li>Jira, Git</li>
+                        <li>Grafana, Prometheus</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section -->
+        <section id="contact" class="py-20">
+            <h2 class="section-heading">Get In Touch</h2>
+            <p class="text-xl text-center text-gray-700 max-w-3xl mx-auto mb-10">
+                I'm actively seeking challenging Software Engineering and DevOps roles for post-graduation (Dec 2025). Feel free to reach out to discuss collaborations or opportunities!
+            </p>
+
+            <div class="flex justify-center flex-wrap gap-8 text-lg font-medium">
+                <!-- Email -->
+                <a href="mailto:nithinp.deploy@gmail.com" class="flex items-center space-x-2 hover:text-primary-accent transition-colors">
+                    <!-- Email Icon SVG -->
+                    <svg class="w-6 h-6 accent-color" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26c.49.33 1.11.33 1.6 0L21 8M3 8a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path></svg>
+                    <span>nithinp.deploy@gmail.com</span>
+                </a>
+                
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/nithin-pulla" target="_blank" class="flex items-center space-x-2 hover:text-primary-accent transition-colors">
+                    <!-- LinkedIn Icon SVG -->
+                    <svg class="w-6 h-6 accent-color" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-8.883a2.973 2.973 0 10-5.946 0v8.883h-3.554V9.45H8.38l.175 1.258h.04c.56-1.05 1.942-1.802 3.864-1.802 2.766 0 4.887 1.832 4.887 5.761v7.195zM5.337 7.433a2.062 2.062 0 10-.001-4.125 2.062 2.062 0 000 4.125z"/></svg>
+                    <span>LinkedIn</span>
+                </a>
+                
+                <!-- GitHub -->
+                <a href="https://github.com/nithinpulla-nkp" target="_blank" class="flex items-center space-x-2 hover:text-primary-accent transition-colors">
+                    <!-- GitHub Icon SVG -->
+                    <svg class="w-6 h-6 accent-color" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.28-.01-1.02-.015-2.007-3.338.724-4.043-1.61-4.043-1.61-.546-1.385-1.332-1.755-1.332-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.838 1.238 1.838 1.238 1.07 1.834 2.807 1.303 3.49.997.108-.775.42-1.303.76-1.605-2.665-.3-5.466-1.33-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.125-.304-.535-1.52.12-3.18 0 0 1.006-.32 3.3-.314 0 0 .95-.36 1.95-.36.985 0 1.95.36 1.95.36 2.295.006 3.3.314 3.3.314.655 1.66.245 2.875.12 3.18.77.84 1.235 1.91 1.235 3.22 0 4.61-2.805 5.625-5.475 5.92.43.37.82 1.105.82 2.22 0 1.605-.015 2.89-.015 3.28 0 .318.22.69.825.57C20.565 21.786 24 17.29 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 mt-12 border-t border-gray-200 text-center text-sm text-gray-500">
+        <p>&copy; 2024 Nithin Pulla. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
