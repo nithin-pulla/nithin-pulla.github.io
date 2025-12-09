@@ -71,11 +71,11 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
             >
-              <span className="text-slate-800">Hi, I'm </span>
+              <span className="text-slate-600 font-normal">Hi, I'm </span>
               <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                Nithin Pulla
+                Nithin
               </span>
             </motion.h1>
 
@@ -84,9 +84,9 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-2xl sm:text-3xl text-slate-600 mb-4 font-light"
+              className="text-3xl sm:text-6xl text-slate-600 mb-4 font-light"
             >
-              Software Engineer crafting scalable systems & intelligent solutions
+              I build <span className="font-bold italic text-slate-900">scalable systems</span> & <span className="font-bold italic text-slate-900">Optimized</span> solutions
             </motion.p>
 
             <motion.div
@@ -97,15 +97,11 @@ export default function HeroSection() {
             >
               <div className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-lg border border-slate-200 shadow-sm">
                 <GraduationCap className="w-4 h-4 text-blue-600" />
-                <span className="text-base text-slate-700 font-medium">MS CS @ UB</span>
+                <span className="text-base text-slate-700 font-medium">MS CS Candidate @ UB</span>
               </div>
               <div className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-lg border border-slate-200 shadow-sm">
                 <Briefcase className="w-4 h-4 text-cyan-600" />
-                <span className="text-base text-slate-700 font-medium">Ex-GE Healthcare</span>
-              </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-lg border border-slate-200 shadow-sm">
-                <Award className="w-4 h-4 text-indigo-600" />
-                <span className="text-base text-slate-700 font-medium">3.9 GPA</span>
+                <span className="text-base text-slate-700 font-medium">Ex-SWE @ GE Healthcare</span>
               </div>
             </motion.div>
 

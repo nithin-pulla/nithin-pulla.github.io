@@ -58,7 +58,7 @@ export default function AboutSection() {
               <p>
                 I'm a <span className="text-slate-900 font-medium">Software Engineer</span> with a passion for building
                 scalable, reliable systems that make a real difference. Currently pursuing my Master's at the
-                University at Buffalo, I bring <span className="text-blue-600 font-medium">3+ years of industry experience</span> from
+                University at Buffalo, I bring <span className="text-blue-600 font-bold text-xl">3+ years of industry experience</span> from
                 GE Healthcare, where I worked on mission-critical healthcare infrastructure.
               </p>
               <p>
@@ -79,13 +79,7 @@ export default function AboutSection() {
                 <div className="p-2 bg-blue-50 rounded-lg">
                   <MapPin className="w-4 h-4 text-blue-600" />
                 </div>
-                <span>Fremont, California, United States</span>
-              </div>
-              <div className="flex items-center gap-3 text-slate-600">
-                <div className="p-2 bg-blue-50 rounded-lg">
-                  <Award className="w-4 h-4 text-blue-600" />
-                </div>
-                <span>3.9 GPA</span>
+                <span className="font-bold text-slate-900">Fremont, California, United States</span>
               </div>
             </div>
           </motion.div>
@@ -112,8 +106,10 @@ export default function AboutSection() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   className={`relative p-6 rounded-2xl border transition-all duration-300 ${edu.current
-                    ? 'bg-gradient-to-br from-blue-50 to-white border-blue-200 shadow-lg shadow-blue-100'
-                    : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'
+                    ? 'bg-gradient-to-br from-[#005bbb]/5 to-transparent border-blue-200 shadow-lg shadow-blue-100'
+                    : edu.school === 'Amrita School of Engineering'
+                      ? 'bg-gradient-to-br from-red-500/5 to-transparent border-slate-200 hover:border-slate-300 shadow-sm'
+                      : 'bg-white border-slate-200 hover:border-slate-300 shadow-sm'
                     }`}
                 >
                   {edu.current && (
@@ -133,8 +129,10 @@ export default function AboutSection() {
                     </div>
 
                     <div className="flex-1">
-                      <h4 className="text-xl font-semibold text-slate-900">{edu.school}</h4>
-                      <p className="text-blue-600 font-medium mt-1">{edu.degree}</p>
+                      <h4 className="text-xl font-bold text-slate-900">
+                        {edu.school}
+                      </h4>
+                      <p className="text-slate-900 font-medium mt-1">{edu.degree}</p>
                     </div>
                   </div>
 

@@ -97,11 +97,9 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-sm flex items-center gap-1">
-            © {currentYear} Nithin Pulla. Built with
-            <Heart className="w-4 h-4 text-red-500 fill-red-500 inline mx-1" />
-            and React
+            © {currentYear} Nithin Pulla.
           </p>
-          
+
           <motion.button
             onClick={scrollToTop}
             whileHover={{ y: -3 }}
