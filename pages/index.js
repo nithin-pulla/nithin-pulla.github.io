@@ -1,4 +1,4 @@
-import Home from '../Pages/Home';
+import Home from './Home';
 
 export default function Index() {
     return <Home />;
