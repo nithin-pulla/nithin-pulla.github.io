@@ -16,142 +16,132 @@ export default function Navbar({ activeSection }) {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     setMobileMenuOpen(false);
   };
 
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-slate-200/50 border-b border-slate-200'
-          : 'bg-transparent'
-          }`}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-black/90 backdrop-blur-xl border-b border-white/5'
+            : 'bg-transparent'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <motion.a
               href="#home"
               onClick={(e) => { e.preventDefault(); scrollToSection('#home'); }}
-              className="relative group"
               whileHover={{ scale: 1.05 }}
+              className="text-xl font-bold text-white"
             >
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                Nithin Pulla
-              </span>
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 group-hover:w-full transition-all duration-300" />
+              NP<span className="text-violet-400">.</span>
             </motion.a>
 
-            {/* Desktop Navigation */}
+            {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-1">
-              {navItems.map((item, index) => (
-                <motion.a
+              {navItems.map((item) => (
+                <a
                   key={item.label}
                   href={item.href}
                   onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group ${activeSection === item.href.slice(1)
-                    ? 'text-blue-600'
-                    : 'text-slate-600 hover:text-slate-900'
-                    }`}
+                  className={`px-4 py-2 text-sm rounded-lg transition-colors ${
+                    activeSection === item.href.slice(1)
+                      ? 'text-white bg-white/10'
+                      : 'text-white/50 hover:text-white hover:bg-white/5'
+                  }`}
                 >
                   {item.label}
-                  <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 transition-all duration-300 ${activeSection === item.href.slice(1) ? 'w-6' : 'w-0 group-hover:w-6'
-                    }`} />
-                </motion.a>
+                </a>
               ))}
             </div>
 
-            {/* Social Icons - Desktop */}
+            {/* Desktop actions */}
             <div className="hidden md:flex items-center gap-3">
               <a
                 href="https://github.com/nithin-pulla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-300"
+                className="p-2 text-white/30 hover:text-white transition-colors"
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-4 h-4" />
               </a>
               <a
                 href="https://linkedin.com/in/nithin-pulla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-300"
+                className="p-2 text-white/30 hover:text-white transition-colors"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-4 h-4" />
               </a>
               <a
-                href="mailto:nithinp.deploy@gmail.com"
-                className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all duration-300"
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
+                className="px-5 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium rounded-full transition-colors"
               >
-                <Mail className="w-5 h-5" />
+                Hire Me
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile menu toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors"
+              className="md:hidden p-2 text-white/50 hover:text-white transition-colors"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 md:hidden pt-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 md:hidden bg-black/97 backdrop-blur-2xl pt-16"
           >
-            <div className="absolute inset-0 bg-white/98 backdrop-blur-xl">
-              <div className="flex flex-col items-center justify-center h-full gap-6">
-                {navItems.map((item, index) => (
-                  <motion.a
-                    key={item.label}
-                    href={item.href}
-                    onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="text-2xl font-medium text-slate-700 hover:text-blue-600 transition-colors"
-                  >
-                    {item.label}
-                  </motion.a>
-                ))}
-                <div className="flex gap-6 mt-8">
-                  <a href="https://github.com/nithin-pulla" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900">
-                    <Github className="w-6 h-6" />
-                  </a>
-                  <a href="https://linkedin.com/in/nithin-pulla" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-slate-900">
-                    <Linkedin className="w-6 h-6" />
-                  </a>
-                  <a href="mailto:nithinp.deploy@gmail.com" className="text-slate-500 hover:text-slate-900">
-                    <Mail className="w-6 h-6" />
-                  </a>
-                </div>
+            <div className="flex flex-col items-center justify-center h-full gap-6 pb-16">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="text-2xl font-medium text-white/60 hover:text-white transition-colors"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+              <div className="flex gap-5 mt-6">
+                <a href="https://github.com/nithin-pulla" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors"><Github className="w-5 h-5" /></a>
+                <a href="https://linkedin.com/in/nithin-pulla" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></a>
+                <a href="mailto:nithinp.deploy@gmail.com" className="text-white/30 hover:text-white transition-colors"><Mail className="w-5 h-5" /></a>
               </div>
+              <a
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); setMobileMenuOpen(false); }}
+                className="mt-2 px-8 py-3 bg-violet-600 hover:bg-violet-500 text-white font-medium rounded-full transition-colors"
+              >
+                Hire Me
+              </a>
             </div>
           </motion.div>
         )}

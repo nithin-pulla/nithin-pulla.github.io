@@ -1,157 +1,134 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, TrendingUp, Clock, Zap, CheckCircle, Building2 } from 'lucide-react';
+import { Zap, TrendingUp, Clock, CheckCircle } from 'lucide-react';
+
+const experiences = [
+  {
+    company: 'GE Healthcare',
+    role: 'Software Engineering Specialist',
+    period: 'Aug 2022 – Aug 2024',
+    type: 'Full-time',
+    logo: '/images/ge.jpeg',
+    achievements: [
+      {
+        text: 'Engineered Java-based Audit Trail Repository using Spring with clean architecture',
+        impact: '40% faster search',
+        icon: Zap,
+      },
+      {
+        text: 'Optimized AWS log search & Master Patient Index via SQL tuning & containerization',
+        impact: '96 hrs/year saved · 35% latency ↓',
+        icon: TrendingUp,
+      },
+      {
+        text: 'Built reusable test automation framework with full CI/CD integration',
+        impact: '30 days → 5 days validation',
+        icon: Clock,
+      },
+      {
+        text: 'Automated disaster recovery workflows and failover mechanisms',
+        impact: 'Uptime 98.8% → 99.88%',
+        icon: CheckCircle,
+      },
+      {
+        text: 'Resolved production performance bottleneck via schema & SQL optimization',
+        impact: 'CPU utilization 100% → 20%',
+        icon: Zap,
+      },
+    ],
+  },
+  {
+    company: 'GE Healthcare',
+    role: 'DevOps Engineer Intern',
+    period: 'Aug 2021 – Jul 2022',
+    type: 'Internship',
+    logo: '/images/ge.jpeg',
+    achievements: [
+      {
+        text: 'Designed centralized CI/CD pipeline for 15+ applications (Perforce → GitLab)',
+        impact: '85% faster deployments',
+        icon: TrendingUp,
+      },
+      {
+        text: 'Containerized Python ML pipelines on AWS Lambda & Docker',
+        impact: '2 hours → 48 minutes (60% faster)',
+        icon: Clock,
+      },
+    ],
+  },
+];
 
 export default function ExperienceSection() {
-  const experiences = [
-    {
-      company: 'GE Healthcare',
-      role: 'Software Engineering Specialist',
-      period: 'Aug 2022 - Aug 2024',
-      type: 'Full-time',
-      location: 'Bangalore, India',
-      logo: '/images/ge.jpeg',
-      achievements: [
-        {
-          text: 'Engineered scalable Java-based Audit Trail Repository using Spring with clean architecture',
-          impact: '40% faster search efficiency',
-          icon: Zap,
-        },
-        {
-          text: 'Optimized AWS log search and Master Patient Index through SQL tuning & containerization',
-          impact: '96 hours saved annually, 35% latency reduction',
-          icon: TrendingUp,
-        },
-        {
-          text: 'Built reusable test automation framework with CI/CD integration',
-          impact: 'Validation cycles: 30 days → 5 days',
-          icon: Clock,
-        },
-        {
-          text: 'Automated disaster recovery workflows and failover mechanisms',
-          impact: 'System uptime: 98.8% → 99.88%',
-          icon: CheckCircle,
-        },
-        {
-          text: 'Diagnosed production performance bottleneck via schema & SQL optimization',
-          impact: 'CPU utilization: 100% → 20%',
-          icon: Zap,
-        },
-      ],
-    },
-    {
-      company: 'GE Healthcare',
-      role: 'DevOps Engineer Intern',
-      period: 'Aug 2021 - Jul 2022',
-      type: 'Internship',
-      location: 'Bangalore, India',
-      logo: '/images/ge.jpeg',
-      achievements: [
-        {
-          text: 'Designed centralized CI/CD pipeline for 15+ applications (Perforce to GitLab migration)',
-          impact: '85% decrease in deployment times',
-          icon: TrendingUp,
-        },
-        {
-          text: 'Optimized Python ML pipelines via containerization on AWS Lambda & Docker',
-          impact: 'Runtime: 2 hours → 48 minutes (60% faster)',
-          icon: Clock,
-        },
-      ],
-    },
-  ];
-
   return (
-    <section id="experience" className="relative py-20 lg:py-32 bg-slate-50">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.08),transparent_70%)]" />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Section Header */}
+    <section id="experience" className="relative py-24 lg:py-32 bg-black border-t border-white/5">
+      <div className="max-w-4xl mx-auto px-6">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 lg:mb-20"
+          className="text-center mb-16"
         >
-          <span className="text-blue-600 text-sm font-medium uppercase tracking-widest">Career</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-white/50 mb-6">
+            Career
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Work Experience
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            3+ years of building scalable, production-ready systems at GE Healthcare
+          <p className="text-white/30 text-sm">
+            3+ years building production-grade systems at GE Healthcare
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
-        {/* Experience Cards */}
-        <div className="space-y-6">
-          {experiences.map((exp, index) => (
+        {/* Experience cards */}
+        <div className="space-y-5">
+          {experiences.map((exp, i) => (
             <motion.div
-              key={`${exp.company}-${exp.role}`}
-              initial={{ opacity: 0, y: 30 }}
+              key={`${exp.role}-${i}`}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15 }}
-              className="relative p-5 sm:p-8 bg-gradient-to-br from-purple-100/60 via-purple-50/40 to-white rounded-2xl border border-purple-200 hover:border-purple-300 transition-all duration-300 shadow-md hover:shadow-xl overflow-hidden"
+              transition={{ delay: i * 0.1 }}
+              className="p-6 sm:p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.03] transition-colors"
             >
-              {/* Decorative gradient overlay */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-200/40 to-transparent rounded-full blur-3xl -z-0" />
-              <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-purple-100/30 to-transparent rounded-full blur-3xl -z-0" />
-              <div className="relative z-10">
-                {/* Header */}
-                <div className="flex items-start gap-6 mb-6">
-                  {/* Company Logo */}
-                  <div className="flex-shrink-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full bg-white border-2 border-purple-200 shadow-lg shadow-purple-100/50 overflow-hidden flex items-center justify-center">
-                    <img
-                      src={exp.logo}
-                      alt={exp.company}
-                      className="w-full h-full object-cover p-3"
-                    />
+              {/* Card header */}
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 overflow-hidden flex-shrink-0 flex items-center justify-center">
+                  <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover p-2" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-bold text-white">{exp.role}</h3>
+                  <p className="text-violet-400 font-medium text-sm mt-0.5">{exp.company}</p>
+                  <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-white/30">
+                    <span>{exp.period}</span>
+                    <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md">
+                      {exp.type}
+                    </span>
                   </div>
+                </div>
+              </div>
 
-                  <div className="flex-1">
-                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">{exp.role}</h3>
-                    <p className="text-purple-600 font-semibold text-base sm:text-lg mb-3">{exp.company}</p>
-                    <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="w-4 h-4" />
-                        {exp.period}
-                      </span>
-                      <span className="px-3 py-1 bg-slate-100 rounded-full text-xs font-medium text-slate-600">
-                        {exp.type}
-                      </span>
+              {/* Achievements */}
+              <div className="grid sm:grid-cols-2 gap-3">
+                {exp.achievements.map((ach, j) => {
+                  const Icon = ach.icon;
+                  return (
+                    <div
+                      key={j}
+                      className="flex gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-violet-500/20 hover:bg-violet-500/5 transition-all duration-200"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-violet-500/10 border border-violet-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Icon className="w-3.5 h-3.5 text-violet-400" />
+                      </div>
+                      <div>
+                        <p className="text-white/40 text-xs leading-relaxed mb-2">{ach.text}</p>
+                        <span className="inline-block px-2 py-0.5 bg-violet-500/10 border border-violet-500/20 rounded text-[10px] font-medium text-violet-400">
+                          {ach.impact}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-
-                {/* Achievements Grid */}
-                <div className="grid md:grid-cols-2 gap-4">
-                  {exp.achievements.map((achievement, achIndex) => {
-                    const Icon = achievement.icon;
-                    return (
-                      <motion.div
-                        key={achIndex}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 * achIndex }}
-                        className="flex gap-3 p-4 bg-gradient-to-br from-purple-50/80 to-white rounded-xl hover:from-purple-100/60 hover:to-purple-50/50 transition-all duration-300 border border-purple-100"
-                      >
-                        <div className="shrink-0 mt-0.5">
-                          <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                            <Icon className="w-4 h-4 text-slate-700" />
-                          </div>
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-slate-700 text-sm mb-2 leading-relaxed">{achievement.text}</p>
-                          <span className="inline-block px-2.5 py-1 bg-slate-100 border border-slate-200 rounded-md text-xs font-medium text-slate-700">
-                            {achievement.impact}
-                          </span>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
+                  );
+                })}
               </div>
             </motion.div>
           ))}

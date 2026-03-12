@@ -1,72 +1,67 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Heart, Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
+
+const links = [
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Contact', href: '#contact' },
+];
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const currentYear = new Date().getFullYear();
-
-  const quickLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Contact', href: '#contact' },
-  ];
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="relative bg-slate-900 border-t border-slate-800">
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
+    <footer className="bg-black border-t border-white/5">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid sm:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
           <div>
-            <a href="#home" className="inline-block">
-              <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                NP
-              </span>
+            <a href="#home" className="text-2xl font-bold text-white">
+              NP<span className="text-violet-400">.</span>
             </a>
-            <p className="text-slate-400 mt-4 max-w-xs">
-              Software Engineer passionate about building scalable systems and intelligent solutions.
+            <p className="mt-3 text-sm text-white/25 leading-relaxed max-w-xs">
+              Software Engineer building scalable systems and intelligent solutions.
             </p>
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-3 mt-5">
               <a
                 href="https://github.com/nithin-pulla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-slate-800 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
+                className="p-2 text-white/25 hover:text-white hover:bg-white/5 rounded-lg transition-all"
               >
-                <Github className="w-5 h-5" />
+                <Github className="w-4 h-4" />
               </a>
               <a
                 href="https://linkedin.com/in/nithin-pulla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 bg-slate-800 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
+                className="p-2 text-white/25 hover:text-white hover:bg-white/5 rounded-lg transition-all"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-4 h-4" />
               </a>
               <a
                 href="mailto:nithinp.deploy@gmail.com"
-                className="p-2.5 bg-slate-800 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700 transition-all"
+                className="p-2 text-white/25 hover:text-white hover:bg-white/5 rounded-lg transition-all"
               >
-                <Mail className="w-5 h-5" />
+                <Mail className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
+            <h4 className="text-sm font-semibold text-white/60 mb-4 uppercase tracking-wider">
+              Quick Links
+            </h4>
+            <ul className="space-y-2.5">
+              {links.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-slate-400 hover:text-cyan-400 transition-colors text-sm"
+                    className="text-sm text-white/25 hover:text-white/60 transition-colors"
                   >
                     {link.label}
                   </a>
@@ -75,38 +70,38 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Contact info */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3 text-sm text-slate-400">
+            <h4 className="text-sm font-semibold text-white/60 mb-4 uppercase tracking-wider">
+              Contact
+            </h4>
+            <ul className="space-y-2.5 text-sm text-white/25">
               <li>
-                <a href="mailto:nithinp.deploy@gmail.com" className="hover:text-cyan-400 transition-colors">
+                <a href="mailto:nithinp.deploy@gmail.com" className="hover:text-white/50 transition-colors">
                   nithinp.deploy@gmail.com
                 </a>
               </li>
               <li>
-                <a href="tel:+17165109152" className="hover:text-cyan-400 transition-colors">
+                <a href="tel:+17165109152" className="hover:text-white/50 transition-colors">
                   +1 716-510-9152
                 </a>
               </li>
-              <li>Fremont, CA 94539</li>
+              <li>Fremont, CA</li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-slate-500 text-sm flex items-center gap-1">
-            © {currentYear} Nithin Pulla.
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-white/5 flex items-center justify-between">
+          <p className="text-xs text-white/15">
+            © {new Date().getFullYear()} Nithin Pulla. All rights reserved.
           </p>
-
-          <motion.button
+          <button
             onClick={scrollToTop}
-            whileHover={{ y: -3 }}
-            className="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl text-slate-400 hover:text-white transition-all"
+            className="p-2.5 border border-white/10 rounded-xl text-white/25 hover:text-white hover:border-white/20 transition-all"
           >
-            <ArrowUp className="w-5 h-5" />
-          </motion.button>
+            <ArrowUp className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </footer>
