@@ -1,157 +1,183 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, Send, GraduationCap, Briefcase, Network, Brain } from 'lucide-react';
 
-// ── Neural-network / distributed-system background ──────────────────────────
-// 23 nodes across 6 "layers" — looks like both a neural net AND a mesh
-const NODES = [
-  // Layer 0 – input
-  { x: 5,  y: 22 }, { x: 5,  y: 50 }, { x: 5,  y: 78 },
-  // Layer 1
-  { x: 22, y: 12 }, { x: 22, y: 36 }, { x: 22, y: 62 }, { x: 22, y: 88 },
-  // Layer 2
-  { x: 39, y: 8  }, { x: 39, y: 30 }, { x: 39, y: 52 }, { x: 39, y: 74 }, { x: 39, y: 94 },
-  // Layer 3
-  { x: 56, y: 18 }, { x: 56, y: 40 }, { x: 56, y: 62 }, { x: 56, y: 85 },
-  // Layer 4
-  { x: 73, y: 12 }, { x: 73, y: 34 }, { x: 73, y: 58 }, { x: 73, y: 80 },
-  // Layer 5 – output
-  { x: 90, y: 28 }, { x: 90, y: 52 }, { x: 90, y: 76 },
-];
+// ── Canvas-based particle network ────────────────────────────────────────────
+// Runs entirely client-side via requestAnimationFrame — no SSR, no SMIL glitches
+function ParticleNetwork() {
+  const canvasRef = useRef(null);
 
-const EDGES = [
-  [0,3],[0,4],[1,4],[1,5],[2,5],[2,6],
-  [3,7],[4,8],[4,9],[5,9],[5,10],[6,10],[6,11],
-  [7,12],[8,12],[8,13],[9,13],[9,14],[10,14],[11,15],
-  [12,16],[13,16],[13,17],[14,17],[14,18],[15,18],[15,19],
-  [16,20],[17,21],[17,20],[18,21],[18,22],[19,22],
-];
-// Skip/residual connections (distributed mesh / agent communication paths)
-const SKIP_EDGES = [
-  [2, 9], [7, 14], [12, 19], [16, 22],
-];
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let rafId;
 
-// Packets travel along these edges (forward pass + skip connections = AI agent msgs)
-const PACKETS = [
-  { from: 0,  to: 4,  dur: 2.8, delay: 0.0 },
-  { from: 1,  to: 5,  dur: 3.2, delay: 0.7 },
-  { from: 4,  to: 9,  dur: 2.5, delay: 1.4 },
-  { from: 5,  to: 10, dur: 3.0, delay: 0.4 },
-  { from: 9,  to: 13, dur: 2.7, delay: 1.1 },
-  { from: 10, to: 14, dur: 2.4, delay: 1.8 },
-  { from: 13, to: 17, dur: 2.9, delay: 0.9 },
-  { from: 17, to: 21, dur: 3.1, delay: 0.3 },
-  // Skip connections — residual paths / agent broadcast
-  { from: 2,  to: 9,  dur: 3.6, delay: 2.1 },
-  { from: 7,  to: 14, dur: 3.4, delay: 1.6 },
-  { from: 12, to: 19, dur: 3.8, delay: 0.5 },
-  { from: 16, to: 22, dur: 3.0, delay: 2.4 },
-];
+    // Size canvas to its CSS dimensions
+    const resize = () => {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-// Floating concept labels — positions as % of SVG viewport
-const CONCEPTS = [
-  { text: 'Raft Consensus',  x: 2,  y: 6  },
-  { text: 'High Availability', x: 2,  y: 16 },
-  { text: 'Fault Tolerance', x: 2,  y: 88 },
-  { text: 'Low Latency',     x: 2,  y: 97 },
-  { text: 'Neural Networks', x: 72, y: 4  },
-  { text: 'AI Agents',       x: 72, y: 13 },
-  { text: 'Computer Vision', x: 72, y: 91 },
-  { text: 'Message Queues',  x: 72, y: 100 },
-];
+    const W = () => canvas.width;
+    const H = () => canvas.height;
 
-// Deterministic pulse timings (avoids SSR hydration mismatch)
-const PULSE_DUR  = [3.2,3.8,4.4,2.9,3.5,4.1,2.7,3.3,3.9,4.5,3.0,3.6,4.2,2.8,3.4,4.0,2.6,3.2,3.8,4.4,3.1,3.7,4.3];
-const PULSE_DELAY= [0.0,0.5,1.0,1.5,2.0,0.8,1.3,0.3,1.8,0.7,2.2,0.4,1.6,0.9,2.5,1.1,0.6,2.0,1.4,2.8,0.2,1.7,2.3];
+    // ── Particles ──────────────────────────────────────────────────────────
+    const COUNT     = 62;
+    const MAX_DIST  = 160; // px — connection threshold
 
-function NetworkBackground() {
+    const pts = Array.from({ length: COUNT }, (_, i) => ({
+      x:     Math.random() * W(),
+      y:     Math.random() * H(),
+      vx:    (Math.random() - 0.5) * 0.28,
+      vy:    (Math.random() - 0.5) * 0.28,
+      r:     Math.random() * 1.0 + 0.7,
+      phase: (i / COUNT) * Math.PI * 2,   // deterministic phase spread
+      isHub: i < 9,                        // first 9 are "hub" nodes
+    }));
+
+    // ── Data packets (travel between hub nodes) ─────────────────────────────
+    const PACKET_COUNT = 7;
+    const packets = Array.from({ length: PACKET_COUNT }, (_, i) => {
+      const from = i % 9;
+      const to   = (i + 3) % 9;
+      return { fromIdx: from, toIdx: to, progress: i / PACKET_COUNT };
+    });
+
+    const nextHub = (exclude) => {
+      let idx;
+      do { idx = Math.floor(Math.random() * 9); } while (idx === exclude);
+      return idx;
+    };
+
+    // ── Draw loop ───────────────────────────────────────────────────────────
+    let frame = 0;
+    const draw = () => {
+      frame++;
+      const w = W(), h = H();
+      ctx.clearRect(0, 0, w, h);
+
+      // Move particles
+      pts.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += 0.012;
+        if (p.x < 0)  { p.x = 0;  p.vx = Math.abs(p.vx); }
+        if (p.x > w)  { p.x = w;  p.vx = -Math.abs(p.vx); }
+        if (p.y < 0)  { p.y = 0;  p.vy = Math.abs(p.vy); }
+        if (p.y > h)  { p.y = h;  p.vy = -Math.abs(p.vy); }
+      });
+
+      // Draw edges between nearby particles
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < MAX_DIST) {
+            const a = (1 - d / MAX_DIST) * 0.16;
+            // Violet tint on hub-to-hub edges
+            const color = (pts[i].isHub && pts[j].isHub)
+              ? `rgba(167,139,250,${a * 2})`
+              : `rgba(255,255,255,${a})`;
+            ctx.strokeStyle = color;
+            ctx.lineWidth   = pts[i].isHub && pts[j].isHub ? 0.8 : 0.5;
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      pts.forEach(p => {
+        const pulse = 0.5 + Math.sin(p.phase) * 0.25;
+        if (p.isHub) {
+          // Outer halo
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 5);
+          grad.addColorStop(0, `rgba(167,139,250,${pulse * 0.3})`);
+          grad.addColorStop(1, 'rgba(167,139,250,0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 5, 0, Math.PI * 2);
+          ctx.fill();
+          // Core dot
+          ctx.fillStyle = `rgba(167,139,250,${pulse * 0.95})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * 1.8, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = `rgba(255,255,255,${pulse * 0.55})`;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      // Draw travelling packets (smooth linear interpolation)
+      packets.forEach(pk => {
+        pk.progress += 0.004;
+        if (pk.progress >= 1) {
+          pk.progress = 0;
+          pk.fromIdx  = pk.toIdx;
+          pk.toIdx    = nextHub(pk.toIdx);
+        }
+        const from  = pts[pk.fromIdx];
+        const to    = pts[pk.toIdx];
+        const t     = pk.progress;
+        const px    = from.x + (to.x - from.x) * t;
+        const py    = from.y + (to.y - from.y) * t;
+        // Bell-curve opacity: bright in middle, fades at ends
+        const fade  = Math.sin(t * Math.PI);
+        // Glow
+        const g = ctx.createRadialGradient(px, py, 0, px, py, 8);
+        g.addColorStop(0, `rgba(167,139,250,${fade * 0.7})`);
+        g.addColorStop(1, 'rgba(167,139,250,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(px, py, 8, 0, Math.PI * 2);
+        ctx.fill();
+        // Core dot
+        ctx.fillStyle = `rgba(220,200,255,${fade * 0.95})`;
+        ctx.beginPath();
+        ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      rafId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
   return (
-    <svg
+    <canvas
+      ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="xMidYMid slice"
-      style={{ opacity: 0.16 }}
-    >
-      {/* Regular edges */}
-      {EDGES.map(([a, b]) => (
-        <line
-          key={`e-${a}-${b}`}
-          x1={NODES[a].x} y1={NODES[a].y}
-          x2={NODES[b].x} y2={NODES[b].y}
-          stroke="white"
-          strokeWidth="0.15"
-          opacity="0.45"
-        />
-      ))}
-      {/* Skip/residual edges — dashed, violet tint */}
-      {SKIP_EDGES.map(([a, b]) => (
-        <line
-          key={`se-${a}-${b}`}
-          x1={NODES[a].x} y1={NODES[a].y}
-          x2={NODES[b].x} y2={NODES[b].y}
-          stroke="rgba(167,139,250,0.6)"
-          strokeWidth="0.2"
-          strokeDasharray="1.2 0.8"
-          opacity="0.6"
-        />
-      ))}
-      {/* Concept label text */}
-      {CONCEPTS.map((c) => (
-        <text
-          key={c.text}
-          x={c.x}
-          y={c.y}
-          fill="rgba(255,255,255,0.28)"
-          fontSize="2.2"
-          fontFamily="ui-monospace, monospace"
-          letterSpacing="0.05"
-        >
-          {c.text}
-        </text>
-      ))}
-
-      {/* Nodes with pulse */}
-      {NODES.map((n, i) => (
-        <circle key={`n-${i}`} cx={n.x} cy={n.y} r="0.55" fill="white">
-          <animate
-            attributeName="r"
-            values="0.55;1.3;0.55"
-            dur={`${PULSE_DUR[i]}s`}
-            repeatCount="indefinite"
-            begin={`${PULSE_DELAY[i]}s`}
-          />
-          <animate
-            attributeName="opacity"
-            values="0.7;0.15;0.7"
-            dur={`${PULSE_DUR[i]}s`}
-            repeatCount="indefinite"
-            begin={`${PULSE_DELAY[i]}s`}
-          />
-        </circle>
-      ))}
-
-      {/* Travelling data packets */}
-      {PACKETS.map((p, i) => (
-        <circle key={`pk-${i}`} r="0.75" fill="rgba(167,139,250,0.95)">
-          <animateMotion
-            dur={`${p.dur}s`}
-            repeatCount="indefinite"
-            begin={`${p.delay}s`}
-            path={`M ${NODES[p.from].x} ${NODES[p.from].y} L ${NODES[p.to].x} ${NODES[p.to].y}`}
-          />
-          <animate
-            attributeName="opacity"
-            values="0;0.9;0.9;0"
-            keyTimes="0;0.12;0.88;1"
-            dur={`${p.dur}s`}
-            repeatCount="indefinite"
-            begin={`${p.delay}s`}
-          />
-        </circle>
-      ))}
-    </svg>
+      style={{ opacity: 0.55 }}
+    />
   );
 }
+
+// ── Floating concept badges (CSS keyframe animated, no hydration issues) ──────
+const BADGES = [
+  { label: 'High Availability', style: { top: '12%',  left: '2%'  }, delay: '0s'   },
+  { label: 'Raft Consensus',    style: { top: '25%',  left: '1%'  }, delay: '0.8s' },
+  { label: 'Low Latency',       style: { bottom: '22%', left: '2%' }, delay: '1.6s' },
+  { label: 'Fault Tolerance',   style: { bottom: '10%', left: '1%' }, delay: '2.4s' },
+  { label: 'Neural Networks',   style: { top: '12%',  right: '2%' }, delay: '0.4s' },
+  { label: 'AI Agents',         style: { top: '25%',  right: '1%' }, delay: '1.2s' },
+  { label: 'Computer Vision',   style: { bottom: '22%', right: '2%' }, delay: '2.0s' },
+  { label: 'Message Queues',    style: { bottom: '10%', right: '1%' }, delay: '2.8s' },
+];
 
 export default function HeroSection() {
   const scrollTo = (id) => document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -176,11 +202,31 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Neural network background */}
-      <NetworkBackground />
+      {/* Canvas particle network — smooth RAF animation, no SMIL */}
+      <ParticleNetwork />
 
       {/* Violet orb */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-violet-700/15 blur-[130px] pointer-events-none" />
+
+      {/* Floating concept badges — CSS fade-in, no motion lib needed */}
+      <style>{`
+        @keyframes badgePulse {
+          0%, 100% { opacity: 0.13; }
+          50%       { opacity: 0.22; }
+        }
+      `}</style>
+      {BADGES.map((b) => (
+        <span
+          key={b.label}
+          className="absolute hidden lg:block text-[10px] font-mono text-white/70 border border-white/10 bg-white/[0.03] px-2 py-0.5 rounded-md pointer-events-none select-none"
+          style={{
+            ...b.style,
+            animation: `badgePulse 4s ease-in-out ${b.delay} infinite`,
+          }}
+        >
+          {b.label}
+        </span>
+      ))}
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 min-h-screen flex items-center">
