@@ -22,7 +22,7 @@ export default function Footer() {
             <a href="#home" className="text-2xl font-bold text-white">
               NP<span className="text-violet-400">.</span>
             </a>
-            <p className="mt-3 text-sm text-white/25 leading-relaxed max-w-xs">
+            <p className="mt-3 text-sm text-white/50 leading-relaxed max-w-xs">
               Software Engineer building scalable systems and intelligent solutions.
             </p>
             <div className="flex gap-3 mt-5">
@@ -30,7 +30,7 @@ export default function Footer() {
                 href="https://github.com/nithin-pulla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-white/25 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                className="p-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -38,13 +38,13 @@ export default function Footer() {
                 href="https://linkedin.com/in/nithin-pulla"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-white/25 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                className="p-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
                 href="mailto:nithinp.deploy@gmail.com"
-                className="p-2 text-white/25 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                className="p-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all"
               >
                 <Mail className="w-4 h-4" />
               </a>
@@ -53,7 +53,7 @@ export default function Footer() {
 
           {/* Quick links */}
           <div>
-            <h4 className="text-sm font-semibold text-white/60 mb-4 uppercase tracking-wider">
+            <h4 className="text-sm font-semibold text-white/70 mb-4 uppercase tracking-wider">
               Quick Links
             </h4>
             <ul className="space-y-2.5">
@@ -61,7 +61,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-sm text-white/25 hover:text-white/60 transition-colors"
+                    className="text-sm text-white/50 hover:text-white/80 transition-colors"
                   >
                     {link.label}
                   </a>
@@ -72,17 +72,17 @@ export default function Footer() {
 
           {/* Contact info */}
           <div>
-            <h4 className="text-sm font-semibold text-white/60 mb-4 uppercase tracking-wider">
+            <h4 className="text-sm font-semibold text-white/70 mb-4 uppercase tracking-wider">
               Contact
             </h4>
-            <ul className="space-y-2.5 text-sm text-white/25">
+            <ul className="space-y-2.5 text-sm text-white/50">
               <li>
-                <a href="mailto:nithinp.deploy@gmail.com" className="hover:text-white/50 transition-colors">
+                <a href="mailto:nithinp.deploy@gmail.com" className="hover:text-white/80 transition-colors">
                   nithinp.deploy@gmail.com
                 </a>
               </li>
               <li>
-                <a href="tel:+17165109152" className="hover:text-white/50 transition-colors">
+                <a href="tel:+17165109152" className="hover:text-white/80 transition-colors">
                   +1 716-510-9152
                 </a>
               </li>
@@ -93,12 +93,12 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/5 flex items-center justify-between">
-          <p className="text-xs text-white/15">
+          <p className="text-xs text-white/35">
             © {new Date().getFullYear()} Nithin Pulla. All rights reserved.
           </p>
           <button
             onClick={scrollToTop}
-            className="p-2.5 border border-white/10 rounded-xl text-white/25 hover:text-white hover:border-white/20 transition-all"
+            className="p-2.5 border border-white/15 rounded-xl text-white/40 hover:text-white hover:border-white/30 transition-all"
           >
             <ArrowUp className="w-4 h-4" />
           </button>

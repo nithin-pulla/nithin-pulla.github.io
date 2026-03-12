@@ -20,13 +20,13 @@ export default function ContactSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-white/50 mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/15 bg-white/5 text-sm text-white/70 mb-6">
             Let's Connect
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
             Ready to Build<br />Something Great?
           </h2>
-          <p className="text-white/40 text-sm max-w-md mx-auto leading-relaxed">
+          <p className="text-white/65 text-sm max-w-md mx-auto leading-relaxed">
             I'm actively seeking <span className="text-white/70">full-time opportunities</span> and exciting
             collaborations. Whether you have a project in mind or just want to chat about tech, I'd love
             to hear from you.
@@ -48,7 +48,7 @@ export default function ContactSection() {
 
           <div className="relative z-10 text-center">
             {/* Location */}
-            <div className="flex items-center justify-center gap-2 text-white/25 text-sm mb-8">
+            <div className="flex items-center justify-center gap-2 text-white/50 text-sm mb-8">
               <MapPin className="w-3.5 h-3.5 text-violet-400" />
               Fremont, California, United States
             </div>
@@ -78,7 +78,7 @@ export default function ContactSection() {
               {stats.map((s) => (
                 <div key={s.label} className="text-center">
                   <div className="text-2xl font-bold text-white mb-1">{s.value}</div>
-                  <div className="text-xs text-white/25">{s.label}</div>
+                  <div className="text-xs text-white/55">{s.label}</div>
                 </div>
               ))}
             </div>

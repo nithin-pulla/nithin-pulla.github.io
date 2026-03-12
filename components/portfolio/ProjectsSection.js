@@ -106,13 +106,13 @@ export default function ProjectsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-white/50 mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/15 bg-white/5 text-sm text-white/70 mb-6">
             Portfolio
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Featured Projects
           </h2>
-          <p className="text-white/30 text-sm max-w-md mx-auto">
+          <p className="text-white/55 text-sm max-w-md mx-auto">
             Full-stack systems, cloud infrastructure, and ML research spanning production and academia.
           </p>
         </motion.div>
@@ -147,7 +147,7 @@ export default function ProjectsSection() {
                         <Github className="w-4 h-4" />
                       </a>
                     )}
-                    <span className="px-2.5 py-0.5 text-[10px] font-medium rounded-full border border-white/10 bg-white/5 text-white/30">
+                    <span className="px-2.5 py-0.5 text-[10px] font-medium rounded-full border border-white/15 bg-white/5 text-white/60">
                       {project.category}
                     </span>
                   </div>
@@ -157,7 +157,7 @@ export default function ProjectsSection() {
                   {project.title}
                 </h3>
 
-                <p className="text-white/35 text-xs leading-relaxed mb-4 flex-1">
+                <p className="text-white/65 text-xs leading-relaxed mb-4 flex-1">
                   {project.description}
                 </p>
 
@@ -172,7 +172,7 @@ export default function ProjectsSection() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 text-[10px] text-white/25 bg-white/[0.03] border border-white/5 rounded-md"
+                      className="px-2 py-0.5 text-[10px] text-white/55 bg-white/[0.04] border border-white/10 rounded-md"
                     >
                       {t}
                     </span>

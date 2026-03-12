@@ -114,7 +114,7 @@ export default function SkillsSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-white/50 mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/15 bg-white/5 text-sm text-white/70 mb-6">
             Expertise
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
@@ -138,7 +138,7 @@ export default function SkillsSection() {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeCategory === cat.id
                     ? 'bg-violet-600 text-white shadow-lg shadow-violet-900/40'
-                    : 'border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10'
+                    : 'border border-white/15 bg-white/5 text-white/65 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -162,14 +162,14 @@ export default function SkillsSection() {
               exit={{ opacity: 0, scale: 0.85 }}
               transition={{ duration: 0.2, delay: i * 0.02 }}
               whileHover={{ scale: 1.1, y: -4 }}
-              className="aspect-square flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-violet-500/10 hover:border-violet-500/30 transition-all duration-200 cursor-default"
+              className="aspect-square flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-2xl border border-white/15 bg-white/[0.04] hover:bg-violet-500/10 hover:border-violet-500/30 transition-all duration-200 cursor-default"
             >
               <img
                 src={skillLogos[skill.name]}
                 alt={skill.name}
                 className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
               />
-              <span className="text-[9px] sm:text-[10px] text-white/35 font-medium text-center leading-tight">
+              <span className="text-[9px] sm:text-[10px] text-white/75 font-medium text-center leading-tight">
                 {skill.name}
               </span>
             </motion.div>
@@ -196,7 +196,7 @@ export default function SkillsSection() {
             >
               <div className="text-2xl mb-4">{item.icon}</div>
               <h4 className="text-white font-semibold mb-2">{item.title}</h4>
-              <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+              <p className="text-white/65 text-sm leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </motion.div>

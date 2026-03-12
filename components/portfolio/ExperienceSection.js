@@ -69,13 +69,13 @@ export default function ExperienceSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-white/50 mb-6">
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/15 bg-white/5 text-sm text-white/70 mb-6">
             Career
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             Work Experience
           </h2>
-          <p className="text-white/30 text-sm">
+          <p className="text-white/55 text-sm">
             3+ years building production-grade systems at GE Healthcare
           </p>
         </motion.div>
@@ -93,13 +93,13 @@ export default function ExperienceSection() {
             >
               {/* Card header */}
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                  <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover p-2" />
+                <div className="w-12 h-12 rounded-xl bg-white border border-white/20 overflow-hidden flex-shrink-0 flex items-center justify-center p-1.5">
+                  <img src={exp.logo} alt={exp.company} className="w-full h-full object-contain" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="text-lg font-bold text-white">{exp.role}</h3>
                   <p className="text-violet-400 font-medium text-sm mt-0.5">{exp.company}</p>
-                  <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-white/30">
+                  <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-white/55">
                     <span>{exp.period}</span>
                     <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded-md">
                       {exp.type}
@@ -121,7 +121,7 @@ export default function ExperienceSection() {
                         <Icon className="w-3.5 h-3.5 text-violet-400" />
                       </div>
                       <div>
-                        <p className="text-white/40 text-xs leading-relaxed mb-2">{ach.text}</p>
+                        <p className="text-white/65 text-xs leading-relaxed mb-2">{ach.text}</p>
                         <span className="inline-block px-2 py-0.5 bg-violet-500/10 border border-violet-500/20 rounded text-[10px] font-medium text-violet-400">
                           {ach.impact}
                         </span>
