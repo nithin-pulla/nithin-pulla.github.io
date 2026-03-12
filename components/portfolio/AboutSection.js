@@ -25,7 +25,7 @@ export default function AboutSection() {
   ];
 
   return (
-    <section id="about" className="relative py-32 bg-white">
+    <section id="about" className="relative py-20 lg:py-32 bg-white">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 via-white to-white" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
@@ -37,10 +37,10 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-12 lg:mb-20"
         >
           <span className="text-blue-600 text-sm font-medium uppercase tracking-widest">About Me</span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Building the Future, One System at a Time
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full" />
@@ -54,7 +54,7 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
+            <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-slate-600 leading-relaxed">
               <p>
                 I'm a <span className="text-slate-900 font-medium">Software Engineer</span> with a passion for building
                 scalable, reliable systems that make a real difference. Currently pursuing my Master's at the
@@ -136,7 +136,7 @@ export default function AboutSection() {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-slate-500 ml-20">
+                  <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-slate-500 sm:ml-20">
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" />
                       {edu.period}
@@ -147,7 +147,7 @@ export default function AboutSection() {
                   </div>
 
                   {edu.coursework.length > 0 && (
-                    <div className="mt-4 ml-20 flex flex-wrap gap-2">
+                    <div className="mt-4 sm:ml-20 flex flex-wrap gap-2">
                       {edu.coursework.map((course) => (
                         <span
                           key={course}

@@ -113,7 +113,7 @@ export default function SkillsSection() {
   };
 
   return (
-    <section id="skills" className="relative py-32 bg-slate-50">
+    <section id="skills" className="relative py-20 lg:py-32 bg-slate-50">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)]" />
       
       <div className="relative z-10 max-w-6xl mx-auto px-6">
@@ -122,10 +122,10 @@ export default function SkillsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 lg:mb-16"
         >
           <span className="text-blue-600 text-sm font-medium uppercase tracking-widest">Expertise</span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Skills & Technologies
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto rounded-full" />
@@ -136,7 +136,7 @@ export default function SkillsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-16"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 lg:mb-16"
         >
           {categories.map((cat) => {
             const Icon = cat.icon;
@@ -160,7 +160,7 @@ export default function SkillsSection() {
         {/* Skills Grid */}
         <motion.div
           layout
-          className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-4"
+          className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-9 xl:grid-cols-10 gap-3 sm:gap-4"
         >
           {filteredSkills.map((skill, index) => (
             <motion.div
@@ -196,7 +196,7 @@ export default function SkillsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-20 grid md:grid-cols-3 gap-8"
+          className="mt-12 lg:mt-20 grid md:grid-cols-3 gap-6 lg:gap-8"
         >
           {[
             { 

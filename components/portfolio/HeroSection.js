@@ -49,7 +49,7 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <div className="text-center lg:text-left">
             {/* Status Badge */}
@@ -71,7 +71,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6"
             >
               <span className="text-slate-600 font-normal">Hi, I'm </span>
               <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
@@ -84,7 +84,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-3xl sm:text-6xl text-slate-600 mb-4 font-light"
+              className="text-xl sm:text-3xl lg:text-4xl xl:text-5xl text-slate-600 mb-4 font-light"
             >
               I build <span className="font-bold italic text-slate-900">scalable systems</span> & <span className="font-bold italic text-slate-900">Optimized</span> solutions
             </motion.p>

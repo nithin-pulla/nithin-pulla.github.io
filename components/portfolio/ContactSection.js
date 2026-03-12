@@ -32,7 +32,7 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="relative py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 overflow-hidden">
+    <section id="contact" className="relative py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         <motion.div
@@ -60,7 +60,7 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 lg:mb-20"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -72,7 +72,7 @@ export default function ContactSection() {
             <Sparkles className="w-4 h-4 text-blue-600" />
             <span className="text-blue-600 text-sm font-medium uppercase tracking-widest">Let's Connect</span>
           </motion.div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mt-4 mb-6">
             <span className="text-slate-900">Ready to Build </span>
             <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
               Something Great?
@@ -92,7 +92,7 @@ export default function ContactSection() {
           transition={{ delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="relative p-10 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-3xl shadow-2xl shadow-blue-500/30 overflow-hidden text-base">
+          <div className="relative p-6 sm:p-10 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-3xl shadow-2xl shadow-blue-500/30 overflow-hidden text-base">
             {/* Animated background patterns */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.8),transparent_50%)]" />
@@ -120,7 +120,7 @@ export default function ContactSection() {
                 <Sparkles className="w-10 h-10 text-white" />
               </motion.div>
 
-              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
                 Coffee Chat? ☕
               </h3>
               <p className="text-lg text-white/90 mb-2 max-w-lg mx-auto leading-relaxed">

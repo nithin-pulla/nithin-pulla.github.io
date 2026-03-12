@@ -118,7 +118,7 @@ export default function ProjectsSection() {
   ];
 
   return (
-    <section id="projects" className="relative py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/40">
+    <section id="projects" className="relative py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/40">
       <div className="absolute inset-0">
         <motion.div
           animate={{
@@ -145,10 +145,10 @@ export default function ProjectsSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 lg:mb-20"
         >
           <span className="text-blue-600 text-sm font-medium uppercase tracking-widest">Portfolio</span>
-          <h2 className="text-4xl sm:text-5xl font-bold mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-6">
             <span className="text-slate-900">Featured </span>
             <span className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent">
               Projects

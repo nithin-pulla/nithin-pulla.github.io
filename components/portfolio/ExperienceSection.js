@@ -62,7 +62,7 @@ export default function ExperienceSection() {
   ];
 
   return (
-    <section id="experience" className="relative py-32 bg-slate-50">
+    <section id="experience" className="relative py-20 lg:py-32 bg-slate-50">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.08),transparent_70%)]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6">
@@ -71,10 +71,10 @@ export default function ExperienceSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 lg:mb-20"
         >
           <span className="text-blue-600 text-sm font-medium uppercase tracking-widest">Career</span>
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 mt-4 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mt-4 mb-6">
             Work Experience
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto">
@@ -92,7 +92,7 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.15 }}
-              className="relative p-8 bg-gradient-to-br from-purple-100/60 via-purple-50/40 to-white rounded-2xl border border-purple-200 hover:border-purple-300 transition-all duration-300 shadow-md hover:shadow-xl overflow-hidden"
+              className="relative p-5 sm:p-8 bg-gradient-to-br from-purple-100/60 via-purple-50/40 to-white rounded-2xl border border-purple-200 hover:border-purple-300 transition-all duration-300 shadow-md hover:shadow-xl overflow-hidden"
             >
               {/* Decorative gradient overlay */}
               <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-purple-200/40 to-transparent rounded-full blur-3xl -z-0" />
@@ -101,7 +101,7 @@ export default function ExperienceSection() {
                 {/* Header */}
                 <div className="flex items-start gap-6 mb-6">
                   {/* Company Logo */}
-                  <div className="flex-shrink-0 w-28 h-28 rounded-full bg-white border-2 border-purple-200 shadow-lg shadow-purple-100/50 overflow-hidden flex items-center justify-center">
+                  <div className="flex-shrink-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full bg-white border-2 border-purple-200 shadow-lg shadow-purple-100/50 overflow-hidden flex items-center justify-center">
                     <img
                       src={exp.logo}
                       alt={exp.company}
@@ -110,8 +110,8 @@ export default function ExperienceSection() {
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-1">{exp.role}</h3>
-                    <p className="text-purple-600 font-semibold text-lg mb-3">{exp.company}</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">{exp.role}</h3>
+                    <p className="text-purple-600 font-semibold text-base sm:text-lg mb-3">{exp.company}</p>
                     <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
                       <span className="flex items-center gap-1.5">
                         <Clock className="w-4 h-4" />
