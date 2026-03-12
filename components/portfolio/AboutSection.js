@@ -113,15 +113,17 @@ export default function AboutSection() {
             </div>
 
             {/* Stats */}
-            <div className="mt-5 grid grid-cols-3 gap-3">
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="p-4 rounded-2xl border border-white/10 bg-white/[0.03] text-center"
-                >
-                  <div className="text-lg font-bold text-violet-400 mb-1">{s.value}</div>
-                  <div className="text-[11px] text-white/50 leading-tight">{s.label}</div>
-                </div>
+            <div className="mt-5 flex items-center justify-between border-t border-white/8 pt-5">
+              {stats.map((s, i) => (
+                <React.Fragment key={s.label}>
+                  <div className="flex-1 text-center">
+                    <div className="text-xl font-bold text-violet-400 mb-1">{s.value}</div>
+                    <div className="text-[11px] text-white/50 leading-tight">{s.label}</div>
+                  </div>
+                  {i < stats.length - 1 && (
+                    <div className="w-px h-8 bg-white/10 flex-shrink-0" />
+                  )}
+                </React.Fragment>
               ))}
             </div>
           </motion.div>

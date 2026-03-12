@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, TrendingUp, Clock, CheckCircle } from 'lucide-react';
+import { Zap, TrendingUp, Clock, CheckCircle, Shield, Network, Layers, Server } from 'lucide-react';
 
 const experiences = [
   {
@@ -11,46 +11,56 @@ const experiences = [
     logo: '/images/ge.jpeg',
     achievements: [
       {
-        text: 'Engineered Java-based Audit Trail Repository using Spring with clean architecture',
-        impact: '40% faster search',
+        text: 'Owned Java/Spring Boot Audit Trail Repository (ATR) for HIPAA compliance — sole developer on 2M+ audit events/day ingestion pipeline on the world\'s #1 ranked VNA',
+        impact: '2M+ events/day · zero data loss',
+        icon: Server,
+      },
+      {
+        text: 'Diagnosed & resolved SQL Server CPU crisis via varchar/nvarchar schema migration using DMV query profiling and SSMS execution plans',
+        impact: 'CPU 100% → 20% restored',
         icon: Zap,
       },
       {
-        text: 'Optimized AWS log search & Master Patient Index via SQL tuning & containerization',
-        impact: '96 hrs/year saved · 35% latency ↓',
-        icon: TrendingUp,
+        text: 'Patched Log4Shell (CVE-2021-44228) CVSS 10.0 zero-day as designated product security rep — production deployed within 1 week of public disclosure',
+        impact: '100% uptime · zero exploitation',
+        icon: Shield,
       },
       {
-        text: 'Built reusable test automation framework with full CI/CD integration',
-        impact: '30 days → 5 days validation',
-        icon: Clock,
+        text: 'Architected RabbitMQ message broker for distributed event ingestion, decoupling clinical systems from the audit persistence layer',
+        impact: 'Zero event loss in production',
+        icon: Network,
       },
       {
-        text: 'Automated disaster recovery workflows and failover mechanisms',
-        impact: 'Uptime 98.8% → 99.88%',
+        text: 'Built Robot Framework end-to-end test automation suite covering 300+ test cases with full CI/CD integration',
+        impact: '1 month → 1 week validation',
         icon: CheckCircle,
       },
       {
-        text: 'Resolved production performance bottleneck via schema & SQL optimization',
-        impact: 'CPU utilization 100% → 20%',
-        icon: Zap,
+        text: 'Automated CCG HA/DR standby provisioning via Ansible playbooks eliminating all manual failover intervention',
+        impact: '2 hrs → 30 min DR recovery · 99.88% uptime',
+        icon: TrendingUp,
       },
     ],
   },
   {
     company: 'GE Healthcare',
-    role: 'DevOps Engineer Intern',
+    role: 'DevOps Engineer',
     period: 'Aug 2021 – Jul 2022',
-    type: 'Internship',
+    type: 'Full-time',
     logo: '/images/ge.jpeg',
     achievements: [
       {
-        text: 'Designed centralized CI/CD pipeline for 15+ applications (Perforce → GitLab)',
-        impact: '85% faster deployments',
+        text: 'Designed centralized CI/CD pipeline migrating 15+ applications from Perforce to GitLab with Docker/Kubernetes containerization',
+        impact: '95% build latency reduction',
         icon: TrendingUp,
       },
       {
-        text: 'Containerized Python ML pipelines on AWS Lambda & Docker',
+        text: 'Built reusable Python multiprocessing framework for ML evaluation and data ingestion pipelines — adopted by 15 cross-functional teams enterprise-wide',
+        impact: '15 teams · 70% ML overhead reduction',
+        icon: Layers,
+      },
+      {
+        text: 'Containerized Python ML pipelines on AWS Lambda & Docker with automated Ansible provisioning',
         impact: '2 hours → 48 minutes (60% faster)',
         icon: Clock,
       },

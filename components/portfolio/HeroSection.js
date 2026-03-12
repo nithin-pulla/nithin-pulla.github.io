@@ -26,17 +26,38 @@ const EDGES = [
   [12,16],[13,16],[13,17],[14,17],[14,18],[15,18],[15,19],
   [16,20],[17,21],[17,20],[18,21],[18,22],[19,22],
 ];
+// Skip/residual connections (distributed mesh / agent communication paths)
+const SKIP_EDGES = [
+  [2, 9], [7, 14], [12, 19], [16, 22],
+];
 
-// Packets travel along these edges (forward pass through the network)
+// Packets travel along these edges (forward pass + skip connections = AI agent msgs)
 const PACKETS = [
-  { from: 0, to: 4,  dur: 2.8, delay: 0.0 },
-  { from: 1, to: 5,  dur: 3.2, delay: 0.7 },
-  { from: 4, to: 9,  dur: 2.5, delay: 1.4 },
-  { from: 5, to: 10, dur: 3.0, delay: 0.4 },
-  { from: 9, to: 13, dur: 2.7, delay: 1.1 },
-  { from: 10,to: 14, dur: 2.4, delay: 1.8 },
-  { from: 13,to: 17, dur: 2.9, delay: 0.9 },
-  { from: 17,to: 21, dur: 3.1, delay: 0.3 },
+  { from: 0,  to: 4,  dur: 2.8, delay: 0.0 },
+  { from: 1,  to: 5,  dur: 3.2, delay: 0.7 },
+  { from: 4,  to: 9,  dur: 2.5, delay: 1.4 },
+  { from: 5,  to: 10, dur: 3.0, delay: 0.4 },
+  { from: 9,  to: 13, dur: 2.7, delay: 1.1 },
+  { from: 10, to: 14, dur: 2.4, delay: 1.8 },
+  { from: 13, to: 17, dur: 2.9, delay: 0.9 },
+  { from: 17, to: 21, dur: 3.1, delay: 0.3 },
+  // Skip connections — residual paths / agent broadcast
+  { from: 2,  to: 9,  dur: 3.6, delay: 2.1 },
+  { from: 7,  to: 14, dur: 3.4, delay: 1.6 },
+  { from: 12, to: 19, dur: 3.8, delay: 0.5 },
+  { from: 16, to: 22, dur: 3.0, delay: 2.4 },
+];
+
+// Floating concept labels — positions as % of SVG viewport
+const CONCEPTS = [
+  { text: 'Raft Consensus',  x: 2,  y: 6  },
+  { text: 'High Availability', x: 2,  y: 16 },
+  { text: 'Fault Tolerance', x: 2,  y: 88 },
+  { text: 'Low Latency',     x: 2,  y: 97 },
+  { text: 'Neural Networks', x: 72, y: 4  },
+  { text: 'AI Agents',       x: 72, y: 13 },
+  { text: 'Computer Vision', x: 72, y: 91 },
+  { text: 'Message Queues',  x: 72, y: 100 },
 ];
 
 // Deterministic pulse timings (avoids SSR hydration mismatch)
@@ -49,9 +70,9 @@ function NetworkBackground() {
       className="absolute inset-0 w-full h-full pointer-events-none"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
-      style={{ opacity: 0.13 }}
+      style={{ opacity: 0.16 }}
     >
-      {/* Edges */}
+      {/* Regular edges */}
       {EDGES.map(([a, b]) => (
         <line
           key={`e-${a}-${b}`}
@@ -61,6 +82,32 @@ function NetworkBackground() {
           strokeWidth="0.15"
           opacity="0.45"
         />
+      ))}
+      {/* Skip/residual edges — dashed, violet tint */}
+      {SKIP_EDGES.map(([a, b]) => (
+        <line
+          key={`se-${a}-${b}`}
+          x1={NODES[a].x} y1={NODES[a].y}
+          x2={NODES[b].x} y2={NODES[b].y}
+          stroke="rgba(167,139,250,0.6)"
+          strokeWidth="0.2"
+          strokeDasharray="1.2 0.8"
+          opacity="0.6"
+        />
+      ))}
+      {/* Concept label text */}
+      {CONCEPTS.map((c) => (
+        <text
+          key={c.text}
+          x={c.x}
+          y={c.y}
+          fill="rgba(255,255,255,0.28)"
+          fontSize="2.2"
+          fontFamily="ui-monospace, monospace"
+          letterSpacing="0.05"
+        >
+          {c.text}
+        </text>
       ))}
 
       {/* Nodes with pulse */}
@@ -257,8 +304,9 @@ export default function HeroSection() {
             className="hidden lg:flex justify-center items-center"
           >
             <div className="relative w-80 h-80 xl:w-96 xl:h-96">
-              {/* Outer violet glow */}
-              <div className="absolute inset-0 rounded-full bg-violet-600/20 blur-3xl scale-110" />
+              {/* Outer soft glow — two layers for depth */}
+              <div className="absolute -inset-8 rounded-full bg-violet-600/20 blur-[70px]" />
+              <div className="absolute inset-0 rounded-full bg-violet-500/30 blur-3xl scale-110" />
               {/* Rotating ring */}
               <motion.div
                 animate={{ rotate: 360 }}

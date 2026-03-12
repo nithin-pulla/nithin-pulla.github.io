@@ -81,11 +81,6 @@ export default function Footer() {
                   nithinp.deploy@gmail.com
                 </a>
               </li>
-              <li>
-                <a href="tel:+17165109152" className="hover:text-white/80 transition-colors">
-                  +1 716-510-9152
-                </a>
-              </li>
               <li>Fremont, CA</li>
             </ul>
           </div>
